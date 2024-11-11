@@ -17,14 +17,21 @@ const Navbar = async () => {
             {session && session?.user ? (
               <>
                 <Link href="/startup/create">
-                  <span>Create</span>
+                  <span className="text-blue-700">Create</span>
                 </Link>
 
-                <button onClick={signOut}>
-                  <span>Logout</span>
-                </button>
+                <form
+                  action={async () => {
+                    "use server";
+                    await signOut({ redirectTo: "/" });
+                  }}
+                >
+                  <button type="submit" className="text-black">
+                    Logout
+                  </button>
+                </form>
                 <Link href={"/users/${session?.id}"}>
-                  <span>{session?.user?.name}</span>
+                  <span className="text-yellow-500">{session?.user?.name}</span>
                 </Link>
               </>
             ) : (
